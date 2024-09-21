@@ -404,3 +404,4 @@
 2024-09-21 09:38:31,334 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
 2024-09-21 09:38:31,336 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
 2024-09-21 09:38:31,337 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
+2024-09-21 12:33:55,363 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 

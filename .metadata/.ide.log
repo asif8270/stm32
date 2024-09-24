@@ -365,3 +365,4 @@
 2024-09-24 08:30:43,012 [INFO] ThirdParty:978 - Integrity check success = true
 2024-09-24 08:30:43,012 [INFO] IntegrityCheckThread:100 - exiting critical section [integrity check]
 2024-09-24 08:30:43,012 [INFO] IntegrityCheckThread:103 - End integrity checks thread
+2024-09-24 12:32:10,749 [ERROR] ConfigurationRetriever:142 - IOException on connection: Read timed out

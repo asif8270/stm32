@@ -142,7 +142,7 @@ int main(void)
  800021e:	d006      	beq.n	800022e <main+0x66>
 		{
 			/*Turn OFF the LED*/
-			GPIOD->BSRR |= GPIO_BSRR_BR14; //(1U<<14)
+			GPIOD->BSRR |= GPIO_BSRR_BR14; //(1U<<30)
  8000220:	4b07      	ldr	r3, [pc, #28]	@ (8000240 <main+0x78>)
  8000222:	699b      	ldr	r3, [r3, #24]
  8000224:	4a06      	ldr	r2, [pc, #24]	@ (8000240 <main+0x78>)
@@ -153,7 +153,7 @@ int main(void)
 		else
 		{
 			/*Turn ON the LED*/
-			GPIOD->BSRR |= LED_RED;
+			GPIOD->BSRR |= LED_RED; //(1U<<14)
  800022e:	4b04      	ldr	r3, [pc, #16]	@ (8000240 <main+0x78>)
  8000230:	699b      	ldr	r3, [r3, #24]
  8000232:	4a03      	ldr	r2, [pc, #12]	@ (8000240 <main+0x78>)

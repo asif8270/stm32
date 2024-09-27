@@ -484,14 +484,14 @@ LOAD C:/ST/STM32CubeIDE_1.15.1/STM32CubeIDE/plugins/com.st.stm32cube.ide.mcu.ext
  .text.uart2_tx_init
                 0x08000358       0x98 ./Src/uart.o
                 0x08000358                uart2_tx_init
- .text.uart_set_baudrate
-                0x080003f0       0x24 ./Src/uart.o
- .text.compute_uart_bd
-                0x08000414       0x26 ./Src/uart.o
- *fill*         0x0800043a        0x2 
  .text.uart2_write
-                0x0800043c       0x30 ./Src/uart.o
-                0x0800043c                uart2_write
+                0x080003f0       0x30 ./Src/uart.o
+                0x080003f0                uart2_write
+ .text.uart_set_baudrate
+                0x08000420       0x24 ./Src/uart.o
+ .text.compute_uart_bd
+                0x08000444       0x26 ./Src/uart.o
+ *fill*         0x0800046a        0x2 
  .text.Reset_Handler
                 0x0800046c       0x50 ./Startup/startup_stm32f407vgtx.o
                 0x0800046c                Reset_Handler

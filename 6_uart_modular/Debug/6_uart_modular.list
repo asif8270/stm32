@@ -380,7 +380,7 @@ int __io_putchar(int ch)
  8000346:	6078      	str	r0, [r7, #4]
 	uart2_write(ch);
  8000348:	6878      	ldr	r0, [r7, #4]
- 800034a:	f000 f877 	bl	800043c <uart2_write>
+ 800034a:	f000 f851 	bl	80003f0 <uart2_write>
 	return ch;
  800034e:	687b      	ldr	r3, [r7, #4]
 }
@@ -390,6 +390,7 @@ int __io_putchar(int ch)
  8000356:	bd80      	pop	{r7, pc}
 
 08000358 <uart2_tx_init>:
+
 
 void uart2_tx_init(void)
 {
@@ -460,7 +461,7 @@ void uart2_tx_init(void)
  80003bc:	f44f 32e1 	mov.w	r2, #115200	@ 0x1c200
  80003c0:	4909      	ldr	r1, [pc, #36]	@ (80003e8 <uart2_tx_init+0x90>)
  80003c2:	480a      	ldr	r0, [pc, #40]	@ (80003ec <uart2_tx_init+0x94>)
- 80003c4:	f000 f814 	bl	80003f0 <uart_set_baudrate>
+ 80003c4:	f000 f82c 	bl	8000420 <uart_set_baudrate>
 
 	/*Configure the UART module direction*/
 	USART2->CR1  = UART_TE;
@@ -484,85 +485,85 @@ void uart2_tx_init(void)
  80003e8:	00f42400 	.word	0x00f42400
  80003ec:	40004400 	.word	0x40004400
 
-080003f0 <uart_set_baudrate>:
-
-static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t BaudRate)
-{
- 80003f0:	b580      	push	{r7, lr}
- 80003f2:	b084      	sub	sp, #16
- 80003f4:	af00      	add	r7, sp, #0
- 80003f6:	60f8      	str	r0, [r7, #12]
- 80003f8:	60b9      	str	r1, [r7, #8]
- 80003fa:	607a      	str	r2, [r7, #4]
-	USARTx->BRR = compute_uart_bd(PeriphClk, BaudRate);
- 80003fc:	6879      	ldr	r1, [r7, #4]
- 80003fe:	68b8      	ldr	r0, [r7, #8]
- 8000400:	f000 f808 	bl	8000414 <compute_uart_bd>
- 8000404:	4603      	mov	r3, r0
- 8000406:	461a      	mov	r2, r3
- 8000408:	68fb      	ldr	r3, [r7, #12]
- 800040a:	609a      	str	r2, [r3, #8]
-}
- 800040c:	bf00      	nop
- 800040e:	3710      	adds	r7, #16
- 8000410:	46bd      	mov	sp, r7
- 8000412:	bd80      	pop	{r7, pc}
-
-08000414 <compute_uart_bd>:
-
-static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate)
-{
- 8000414:	b480      	push	{r7}
- 8000416:	b083      	sub	sp, #12
- 8000418:	af00      	add	r7, sp, #0
- 800041a:	6078      	str	r0, [r7, #4]
- 800041c:	6039      	str	r1, [r7, #0]
-	return ((PeriphClk + (BaudRate/2U))/BaudRate);
- 800041e:	683b      	ldr	r3, [r7, #0]
- 8000420:	085a      	lsrs	r2, r3, #1
- 8000422:	687b      	ldr	r3, [r7, #4]
- 8000424:	441a      	add	r2, r3
- 8000426:	683b      	ldr	r3, [r7, #0]
- 8000428:	fbb2 f3f3 	udiv	r3, r2, r3
- 800042c:	b29b      	uxth	r3, r3
-}
- 800042e:	4618      	mov	r0, r3
- 8000430:	370c      	adds	r7, #12
- 8000432:	46bd      	mov	sp, r7
- 8000434:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8000438:	4770      	bx	lr
-	...
-
-0800043c <uart2_write>:
+080003f0 <uart2_write>:
 
 void uart2_write(int ch)
 {
- 800043c:	b480      	push	{r7}
- 800043e:	b083      	sub	sp, #12
- 8000440:	af00      	add	r7, sp, #0
- 8000442:	6078      	str	r0, [r7, #4]
+ 80003f0:	b480      	push	{r7}
+ 80003f2:	b083      	sub	sp, #12
+ 80003f4:	af00      	add	r7, sp, #0
+ 80003f6:	6078      	str	r0, [r7, #4]
 	/*Make sure transmit data register empty*/
 	while(!(USART2->SR & SR_TXE)){}
- 8000444:	bf00      	nop
- 8000446:	4b08      	ldr	r3, [pc, #32]	@ (8000468 <uart2_write+0x2c>)
- 8000448:	681b      	ldr	r3, [r3, #0]
- 800044a:	f003 0380 	and.w	r3, r3, #128	@ 0x80
- 800044e:	2b00      	cmp	r3, #0
- 8000450:	d0f9      	beq.n	8000446 <uart2_write+0xa>
+ 80003f8:	bf00      	nop
+ 80003fa:	4b08      	ldr	r3, [pc, #32]	@ (800041c <uart2_write+0x2c>)
+ 80003fc:	681b      	ldr	r3, [r3, #0]
+ 80003fe:	f003 0380 	and.w	r3, r3, #128	@ 0x80
+ 8000402:	2b00      	cmp	r3, #0
+ 8000404:	d0f9      	beq.n	80003fa <uart2_write+0xa>
 	/*Write data to the data register*/
 	USART2->DR = (ch & 0xFF);
- 8000452:	687b      	ldr	r3, [r7, #4]
- 8000454:	4a04      	ldr	r2, [pc, #16]	@ (8000468 <uart2_write+0x2c>)
- 8000456:	b2db      	uxtb	r3, r3
- 8000458:	6053      	str	r3, [r2, #4]
+ 8000406:	687b      	ldr	r3, [r7, #4]
+ 8000408:	4a04      	ldr	r2, [pc, #16]	@ (800041c <uart2_write+0x2c>)
+ 800040a:	b2db      	uxtb	r3, r3
+ 800040c:	6053      	str	r3, [r2, #4]
 }
- 800045a:	bf00      	nop
- 800045c:	370c      	adds	r7, #12
- 800045e:	46bd      	mov	sp, r7
- 8000460:	f85d 7b04 	ldr.w	r7, [sp], #4
- 8000464:	4770      	bx	lr
- 8000466:	bf00      	nop
- 8000468:	40004400 	.word	0x40004400
+ 800040e:	bf00      	nop
+ 8000410:	370c      	adds	r7, #12
+ 8000412:	46bd      	mov	sp, r7
+ 8000414:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000418:	4770      	bx	lr
+ 800041a:	bf00      	nop
+ 800041c:	40004400 	.word	0x40004400
+
+08000420 <uart_set_baudrate>:
+
+static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t BaudRate)
+{
+ 8000420:	b580      	push	{r7, lr}
+ 8000422:	b084      	sub	sp, #16
+ 8000424:	af00      	add	r7, sp, #0
+ 8000426:	60f8      	str	r0, [r7, #12]
+ 8000428:	60b9      	str	r1, [r7, #8]
+ 800042a:	607a      	str	r2, [r7, #4]
+	USARTx->BRR = compute_uart_bd(PeriphClk, BaudRate);
+ 800042c:	6879      	ldr	r1, [r7, #4]
+ 800042e:	68b8      	ldr	r0, [r7, #8]
+ 8000430:	f000 f808 	bl	8000444 <compute_uart_bd>
+ 8000434:	4603      	mov	r3, r0
+ 8000436:	461a      	mov	r2, r3
+ 8000438:	68fb      	ldr	r3, [r7, #12]
+ 800043a:	609a      	str	r2, [r3, #8]
+}
+ 800043c:	bf00      	nop
+ 800043e:	3710      	adds	r7, #16
+ 8000440:	46bd      	mov	sp, r7
+ 8000442:	bd80      	pop	{r7, pc}
+
+08000444 <compute_uart_bd>:
+
+static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate)
+{
+ 8000444:	b480      	push	{r7}
+ 8000446:	b083      	sub	sp, #12
+ 8000448:	af00      	add	r7, sp, #0
+ 800044a:	6078      	str	r0, [r7, #4]
+ 800044c:	6039      	str	r1, [r7, #0]
+	return ((PeriphClk + (BaudRate/2U))/BaudRate);
+ 800044e:	683b      	ldr	r3, [r7, #0]
+ 8000450:	085a      	lsrs	r2, r3, #1
+ 8000452:	687b      	ldr	r3, [r7, #4]
+ 8000454:	441a      	add	r2, r3
+ 8000456:	683b      	ldr	r3, [r7, #0]
+ 8000458:	fbb2 f3f3 	udiv	r3, r2, r3
+ 800045c:	b29b      	uxth	r3, r3
+}
+ 800045e:	4618      	mov	r0, r3
+ 8000460:	370c      	adds	r7, #12
+ 8000462:	46bd      	mov	sp, r7
+ 8000464:	f85d 7b04 	ldr.w	r7, [sp], #4
+ 8000468:	4770      	bx	lr
+	...
 
 0800046c <Reset_Handler>:
 

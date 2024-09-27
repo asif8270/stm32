@@ -14,10 +14,11 @@
 #define APB1_CLK			SYS_FREQ
 #define UART_BAUDRATE		115200
 
-#define UART_TE				(1U<<3)
+#define UART_TE				(1U<<3)	//Enabling UART Transmitter
 #define UART_UE				(1U<<13)
 
 #define SR_TXE				(1U<<7)
+
 
 
 void uart2_write(int ch);
@@ -29,6 +30,7 @@ int __io_putchar(int ch)
 	uart2_write(ch);
 	return ch;
 }
+
 
 void uart2_tx_init(void)
 {
@@ -62,6 +64,14 @@ void uart2_tx_init(void)
 	USART2->CR1 |= UART_UE;
 }
 
+void uart2_write(int ch)
+{
+	/*Make sure transmit data register empty*/
+	while(!(USART2->SR & SR_TXE)){}
+	/*Write data to the data register*/
+	USART2->DR = (ch & 0xFF);
+}
+
 static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t BaudRate)
 {
 	USARTx->BRR = compute_uart_bd(PeriphClk, BaudRate);
@@ -70,12 +80,4 @@ static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_
 static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate)
 {
 	return ((PeriphClk + (BaudRate/2U))/BaudRate);
-}
-
-void uart2_write(int ch)
-{
-	/*Make sure transmit data register empty*/
-	while(!(USART2->SR & SR_TXE)){}
-	/*Write data to the data register*/
-	USART2->DR = (ch & 0xFF);
 }

@@ -526,3 +526,18 @@ Caused by: java.nio.channels.UnresolvedAddressException
 
 !ENTRY com.st.stm32cube.ide.mcu.debug.launch 2 0 2024-09-27 10:30:41.682
 !MESSAGE Won't launch debug session since we failed to locate the binary.
+!SESSION 2024-09-28 08:46:26.586 -----------------------------------------------
+eclipse.buildId=Version 1.15.1
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-09-28 08:46:49.514
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-09-28 08:46:49.522
+!MESSAGE Log4j2 initialized with config file D:\stm32\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-09-28 08:47:00.695
+!MESSAGE Started RMI Server, listening on port 41337

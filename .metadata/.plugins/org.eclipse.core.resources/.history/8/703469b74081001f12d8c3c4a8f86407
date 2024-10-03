@@ -1,0 +1,23 @@
+/*
+ * i2c.c
+ *
+ *  Created on: Sep 24, 2024
+ *      Author: Asif
+ */
+
+#include <stdint.h>
+#include "stm32f4xx.h"
+
+void GPIO_Init(void)
+{
+	/*PB6 -> SCL
+	 *PB7 -> SDA */
+
+	/*Enable clock access to GPIOB*/
+
+}
+
+void I2C1_Init(void)
+{
+
+}

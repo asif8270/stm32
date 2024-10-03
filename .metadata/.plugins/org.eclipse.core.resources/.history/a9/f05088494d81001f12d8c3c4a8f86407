@@ -1,0 +1,63 @@
+/*
+ * i2c.c
+ *
+ *  Created on: Sep 24, 2024
+ *      Author: Asif
+ */
+
+#include <stdint.h>
+#include "stm32f4xx.h"
+#include "i2c.h"
+
+void GPIO_Init(void)
+{
+	/*PB6 -> SCL
+	 *PB7 -> SDA */
+
+	/*Enable clock access to GPIOB*/
+	RCC->AHB1ENR |= GPIOB_EN;
+
+	/*Set PB6 and PB7 output mode to alternate function*/
+	/*Clear the pins PB6 and PB7*/
+	GPIOB->MODER &= ~(3U<<13);
+	GPIOB->MODER &= ~(3U<<15);
+
+	/*PB6 - alternate function*/
+	GPIOB->MODER |=  (2U<<13);
+
+	/*PB7 - alternate function*/
+	GPIOB->MODER |=  (2U<<15);
+
+	/*Set PB6 and PB7 to AF4*/
+	GPIOB->AFR[0] &= ~(0xFF000000);
+	GPIOB->AFR[0] |=  (0x44000000);
+
+	/*Set PB6 and PB7 pins output to open drain mode*/
+	GPIOB->OTYPER |= ((1U<<6)|(1U<<7));
+
+	/*Set pull-up for PB6 and PB7 pins*/
+	/*PB6*/
+	GPIOB->PUPDR |=  (1U<<12);
+	GPIOB->PUPDR &= ~(1U<<13);
+
+	/*PB7*/
+	GPIOB->PUPDR |=  (1U<<14);
+	GPIOB->PUPDR &= ~(1U<<15);
+
+}
+
+void I2C1_Init(void)
+{
+	/*Enable clock access to I2C1*/
+	RCC->APB1ENR |= I2C1_EN;
+
+	/*Enter reset mode*/
+
+
+	/*Come out of reset mode*/
+	/*Set peripheral clock frequency*/
+	/*Set I2C to standard mode, 100KHz clock*/
+	/*Set I2C rise time*/
+	/*Enable I2C1 module*/
+
+}

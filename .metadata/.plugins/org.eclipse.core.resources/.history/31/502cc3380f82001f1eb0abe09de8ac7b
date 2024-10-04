@@ -1,0 +1,22 @@
+/*
+ * i2c.h
+ *
+ *  Created on: Sep 24, 2024
+ *      Author: Asif
+ */
+
+#ifndef I2C_H_
+#define I2C_H_
+
+#define GPIOB_EN		(1U<<2)
+#define I2C1_EN			(1U<<21)
+#define I2C1_PE			(1U<<0)
+#define I2C1_100KHz		80
+#define SD_MODE_MAX_TR	17
+
+#define SR2_BSY			(1U<<1)
+#define CR1_ST			(1U<<8)
+#define SR1_SB			(1U<<0)
+
+
+#endif /* I2C_H_ */

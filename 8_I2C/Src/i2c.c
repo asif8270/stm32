@@ -66,11 +66,194 @@ void I2C1_Init(void)
 	I2C1->CR2 |=  (16U);
 
 	/*Set I2C to standard mode, 100KHz clock*/
-	I2C1->CCR =  (0x80);			//0000 0000 1000 0000
+	I2C1->CCR =  I2C1_100KHz;			//0000 0000 1000 0000
 
 	/*Set I2C rise time*/
-	I2C1->TRISE = (0x17);
+	I2C1->TRISE = SD_MODE_MAX_TR;
 
 	/*Enable I2C1 module*/
-	I2C1->CR1 |= (0x0001);
+	I2C1->CR1 |= I2C1_PE;
+}
+
+void I2C1_byteRead(char slv_addr, char reg_addr, char* pdata)
+{
+	volatile int tmp;
+
+	/*Wait until not busy*/
+	while((I2C1->SR2 & SR2_BUSY)){}
+
+	/*Generate start*/
+	I2C1->CR1 |= CR1_START;
+
+	/*Wait until start flag is set*/
+	while(!(I2C1->SR1 & SR1_SB)){}
+
+	/*Transmit slave address + Write*/
+	I2C1->DR = (slv_addr << 1);
+
+	/*Wait until addr flag is set*/
+	while(!(I2C1->SR1 & SR1_ADDR)){}
+
+	/*Clear addr flag by reading the SR2*/
+	tmp = I2C1->SR2;
+
+	/*Wait until transmitter empty*/
+	while(!(I2C1->SR1 & SR1_TXE)){}
+
+	/*Send memory address*/
+	I2C1->DR = reg_addr;
+
+	/*Wait until transmitter empty*/
+	while(!(I2C1->SR1 & SR1_TXE)){}
+
+	/*Generate restart*/
+	I2C1->CR1 |= CR1_START;
+
+	/*Wait until start flag is set*/
+	while(!(I2C1->SR1 & SR1_SB)){}
+
+	/*Transmit slave address + Read*/
+	I2C1->DR = (slv_addr << 1 | 1);
+
+	/*Wait until addr flag is set*/
+	while(!(I2C1->SR1 & SR1_ADDR)){}
+
+	/*Disable Acknowledge*/
+	I2C1->CR1 &= ~CR1_ACK;
+
+	/*Clear addr flag*/
+	tmp = I2C1->SR2;
+
+	/*Generate stop after data received*/
+	I2C1->CR1 |= CR1_STOP;
+
+	/*Wait until RXNE flag is set*/
+	while(!(I2C1->SR1 & SR1_RXNE)){}
+
+	/*Read data from DR*/
+	*pdata++ = I2C1->DR;
+}
+
+void i2c1_burstRead(char saddr, char maddr, int n, char* data)
+{
+	volatile int tmp;
+
+	/*Wait until not busy*/
+	while((I2C1->SR2 & SR2_BUSY)){}
+
+	/*Generate start*/
+	I2C1->CR1 |= CR1_START;
+
+	/*Wait until start flag is set*/
+	while(!(I2C1->SR1 & SR1_SB)){}
+
+	/*Transmit slave address + Write*/
+	I2C1->DR = (slv_addr << 1);
+
+	/*Wait until addr flag is set*/
+	while(!(I2C1->SR1 & SR1_ADDR)){}
+
+	/*Clear addr flag by reading the SR2*/
+	tmp = I2C1->SR2;
+
+	/*Wait until transmitter empty*/
+	while(!(I2C1->SR1 & SR1_TXE)){}
+
+	/*Send memory address*/
+	I2C1->DR = reg_addr;
+
+	/*Wait until transmitter empty*/
+	while(!(I2C1->SR1 & SR1_TXE)){}
+
+	/*Generate restart*/
+	I2C1->CR1 |= CR1_START;
+
+	/*Wait until start flag is set*/
+	while(!(I2C1->SR1 & SR1_SB)){}
+
+	/*Transmit slave address + Read*/
+	I2C1->DR = (slv_addr << 1 | 1);
+
+	/*Wait until addr flag is set*/
+	while(!(I2C1->SR1 & SR1_ADDR)){}
+
+	/*Clear addr flag*/
+	tmp = I2C1->SR2;
+
+	/*Enable Acknowledge*/
+	I2C1->CR1 |= CR1_ACK;
+
+	while(n>0U)
+	{
+		/*if one byte*/
+		if(n == 1U)
+		{
+			/*Disable Acknowledge*/
+			I2C1->CR1 &= ~CR1_ACK;
+
+			/*Generate stop after data received*/
+			I2C1->CR1 |= CR1_STOP;
+
+			/*Wait until RXNE flag is set*/
+			while(!(I2C1->SR1 & SR1_RXNE)){}
+
+			/*Read data from DR*/
+			*pdata++ = I2C1->DR;
+
+			break;
+		}
+		else
+		{
+			/*Wait until RXNE flag is set*/
+			while(!(I2C1->SR1 & SR1_RXNE)){}
+
+			/*Read data from DR*/
+			*pdata++ = I2C1->DR;
+
+			n--;
+		}
+	}
+}
+
+void I2C1_burstWrite(char saddr, char maddr, int n, char* data)
+{
+	volatile int tmp;
+
+	/*Wait until not busy*/
+	while((I2C1->SR2 & SR2_BUSY)){}
+
+	/*Generate start*/
+	I2C1->CR1 |= CR1_START;
+
+	/*Wait until start flag is set*/
+	while(!(I2C1->SR1 & SR1_SB)){}
+
+	/*Transmit slave address + Write*/
+	I2C1->DR = (slv_addr << 1);
+
+	/*Wait until addr flag is set*/
+	while(!(I2C1->SR1 & SR1_ADDR)){}
+
+	/*Clear addr flag by reading the SR2*/
+	tmp = I2C1->SR2;
+
+	/*Wait until transmitter empty*/
+	while(!(I2C1->SR1 & SR1_TXE)){}
+
+	/*Send memory address*/
+	I2C1->DR = reg_addr;
+
+	for(int i= 0; i<n; i++)
+	{
+		/*Wait until data register(transmitter) empty*/
+		while(!(I2C1->SR1 & SR1_TXE)){}
+
+		/*Send data to data register*/
+		I2C1->DR = *pdata++;
+	}
+	/*Wait until transfer finished*/
+	while(!(I2C1->SR1 & SR1_BTF)){}
+
+	/*Generate stop after data written*/
+	I2C1->CR1 |= CR1_STOP;
 }

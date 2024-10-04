@@ -1,0 +1,259 @@
+/*
+ * i2c.c
+ *
+ *  Created on: Sep 24, 2024
+ *      Author: Asif
+ */
+
+#include <stdint.h>
+#include "stm32f4xx.h"
+#include "i2c.h"
+
+void GPIO_Init(void)
+{
+	/*PB6 -> SCL
+	 *PB7 -> SDA */
+
+	/*Enable clock access to GPIOB*/
+	RCC->AHB1ENR |= GPIOB_EN;
+
+	/*Set PB6 and PB7 output mode to alternate function*/
+	/*Clear the pins PB6 and PB7*/
+	GPIOB->MODER &= ~(3U<<12);
+	GPIOB->MODER &= ~(3U<<14);
+
+	/*PB6 - alternate function*/
+	GPIOB->MODER |=  (2U<<12);
+
+	/*PB7 - alternate function*/
+	GPIOB->MODER |=  (2U<<14);
+
+	/*Clear the pins*/
+	GPIOB->AFR[0] &= ~(15U<<24);		//1111 0000 1111 1111 1111 1111 1111 1111
+	GPIOB->AFR[0] &= ~(15U<<28);		//0000 1111 1111 1111 1111 1111 1111 1111
+
+	/*Set PB6 and PB7 to AF4*/
+	GPIOB->AFR[0] |=  (4U<<24);			//0000 0100 0000 0000 0000 0000 0000 0000
+	GPIOB->AFR[0] |=  (4U<<28);			//0100 0000 0000 0000 0000 0000 0000 0000
+
+	/*Set PB6 and PB7 pins output to open drain mode*/
+	GPIOB->OTYPER |= ((1U<<6)|(1U<<7));
+
+	/*Clear the pins*/
+	GPIOB->PUPDR &= ~(3U<<12);
+	GPIOB->PUPDR &= ~(3U<<14);
+
+	/*Set pull-up for PB6*/
+	GPIOB->PUPDR |=  (1U<<12);			//0000 0000 0000 0000 0001 0000 0000 0000
+
+	/*Set pull-up for PB7*/
+	GPIOB->PUPDR |=  (1U<<14);			//0000 0000 0000 0000 0100 0000 0000 0000
+}
+
+void I2C1_Init(void)
+{
+	/*Enable clock access to I2C1*/
+	RCC->APB1ENR |= I2C1_EN;
+
+	/*Enter reset mode*/
+	I2C1->CR1 |= (1U<<15);
+
+	/*Come out of reset mode*/
+	I2C1->CR1 &= ~(1U<<15);
+
+	/*Set peripheral clock frequency*/
+	I2C1->CR2 &= ~(63U);
+	I2C1->CR2 |=  (16U);
+
+	/*Set I2C to standard mode, 100KHz clock*/
+	I2C1->CCR =  I2C1_100KHz;			//0000 0000 1000 0000
+
+	/*Set I2C rise time*/
+	I2C1->TRISE = SD_MODE_MAX_TR;
+
+	/*Enable I2C1 module*/
+	I2C1->CR1 |= I2C1_PE;
+}
+
+void I2C1_byteRead(char slv_addr, char reg_addr, char* pdata)
+{
+	volatile int tmp;
+
+	/*Wait until not busy*/
+	while((I2C1->SR2 & SR2_BUSY)){}
+
+	/*Generate start*/
+	I2C1->CR1 |= CR1_START;
+
+	/*Wait until start flag is set*/
+	while(!(I2C1->SR1 & SR1_SB)){}
+
+	/*Transmit slave address + Write*/
+	I2C1->DR = (slv_addr << 1);
+
+	/*Wait until addr flag is set*/
+	while(!(I2C1->SR1 & SR1_ADDR)){}
+
+	/*Clear addr flag by reading the SR2*/
+	tmp = I2C1->SR2;
+
+	/*Wait until transmitter empty*/
+	while(!(I2C1->SR1 & SR1_TXE)){}
+
+	/*Send memory address*/
+	I2C1->DR = reg_addr;
+
+	/*Wait until transmitter empty*/
+	while(!(I2C1->SR1 & SR1_TXE)){}
+
+	/*Generate restart*/
+	I2C1->CR1 |= CR1_START;
+
+	/*Wait until start flag is set*/
+	while(!(I2C1->SR1 & SR1_SB)){}
+
+	/*Transmit slave address + Read*/
+	I2C1->DR = (slv_addr << 1 | 1);
+
+	/*Wait until addr flag is set*/
+	while(!(I2C1->SR1 & SR1_ADDR)){}
+
+	/*Disable Acknowledge*/
+	I2C1->CR1 &= ~CR1_ACK;
+
+	/*Clear addr flag*/
+	tmp = I2C1->SR2;
+
+	/*Generate stop after data received*/
+	I2C1->CR1 |= CR1_STOP;
+
+	/*Wait until RXNE flag is set*/
+	while(!(I2C1->SR1 & SR1_RXNE)){}
+
+	/*Read data from DR*/
+	*pdata++ = I2C1->DR;
+}
+
+void i2c1_burstRead(char saddr, char maddr, int n, char* data)
+{
+	volatile int tmp;
+
+	/*Wait until not busy*/
+	while((I2C1->SR2 & SR2_BUSY)){}
+
+	/*Generate start*/
+	I2C1->CR1 |= CR1_START;
+
+	/*Wait until start flag is set*/
+	while(!(I2C1->SR1 & SR1_SB)){}
+
+	/*Transmit slave address + Write*/
+	I2C1->DR = (slv_addr << 1);
+
+	/*Wait until addr flag is set*/
+	while(!(I2C1->SR1 & SR1_ADDR)){}
+
+	/*Clear addr flag by reading the SR2*/
+	tmp = I2C1->SR2;
+
+	/*Wait until transmitter empty*/
+	while(!(I2C1->SR1 & SR1_TXE)){}
+
+	/*Send memory address*/
+	I2C1->DR = reg_addr;
+
+	/*Wait until transmitter empty*/
+	while(!(I2C1->SR1 & SR1_TXE)){}
+
+	/*Generate restart*/
+	I2C1->CR1 |= CR1_START;
+
+	/*Wait until start flag is set*/
+	while(!(I2C1->SR1 & SR1_SB)){}
+
+	/*Transmit slave address + Read*/
+	I2C1->DR = (slv_addr << 1 | 1);
+
+	/*Wait until addr flag is set*/
+	while(!(I2C1->SR1 & SR1_ADDR)){}
+
+	/*Clear addr flag*/
+	tmp = I2C1->SR2;
+
+	/*Enable Acknowledge*/
+	I2C1->CR1 |= CR1_ACK;
+
+	while(n>0U)
+	{
+		/*if one byte*/
+		if(n == 1U)
+		{
+			/*Disable Acknowledge*/
+			I2C1->CR1 &= ~CR1_ACK;
+
+			/*Generate stop after data received*/
+			I2C1->CR1 |= CR1_STOP;
+
+			/*Wait until RXNE flag is set*/
+			while(!(I2C1->SR1 & SR1_RXNE)){}
+
+			/*Read data from DR*/
+			*pdata++ = I2C1->DR;
+
+			break;
+		}
+		else
+		{
+			/*Wait until RXNE flag is set*/
+			while(!(I2C1->SR1 & SR1_RXNE)){}
+
+			/*Read data from DR*/
+			*pdata++ = I2C1->DR;
+
+			n--;
+		}
+	}
+}
+
+void I2C1_burstWrite(char saddr, char maddr, int n, char* data)
+{
+	volatile int tmp;
+
+	/*Wait until not busy*/
+	while((I2C1->SR2 & SR2_BUSY)){}
+
+	/*Generate start*/
+	I2C1->CR1 |= CR1_START;
+
+	/*Wait until start flag is set*/
+	while(!(I2C1->SR1 & SR1_SB)){}
+
+	/*Transmit slave address + Write*/
+	I2C1->DR = (slv_addr << 1);
+
+	/*Wait until addr flag is set*/
+	while(!(I2C1->SR1 & SR1_ADDR)){}
+
+	/*Clear addr flag by reading the SR2*/
+	tmp = I2C1->SR2;
+
+	/*Wait until transmitter empty*/
+	while(!(I2C1->SR1 & SR1_TXE)){}
+
+	/*Send memory address*/
+	I2C1->DR = reg_addr;
+
+	for(int i= 0; i<n; i++)
+	{
+		/*Wait until data register(transmitter) empty*/
+		while(!(I2C1->SR1 & SR1_TXE)){}
+
+		/*Send data to data register*/
+		I2C1->DR = *pdata++;
+	}
+	/*Wait until transfer finished*/
+	while(!(I2C1->SR1 & SR1_BTF)){}
+
+	/*Generate stop after data written*/
+	I2C1->CR1 |= CR1_STOP;
+}

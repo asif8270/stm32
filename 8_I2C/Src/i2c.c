@@ -11,43 +11,60 @@
 
 void GPIO_Init(void)
 {
-	/*PB6 -> SCL
-	 *PB7 -> SDA */
+	/*PA5 -> SCL
+	 *PA7 -> SDA
+	 *PE3 -> CS_I2C/SPI */
 
-	/*Enable clock access to GPIOB*/
-	RCC->AHB1ENR |= GPIOB_EN;
+	/*Enable clock access to GPIOA*/
+	RCC->AHB1ENR |= GPIOA_EN;
 
-	/*Set PB6 and PB7 output mode to alternate function*/
-	/*Clear the pins PB6 and PB7*/
-	GPIOB->MODER &= ~(3U<<12);
-	GPIOB->MODER &= ~(3U<<14);
+	/*Set PA5 and PA7 output mode to alternate function*/
+	/*Clear the pins PA5 and PA7*/
+	GPIOA->MODER &= ~(3U<<10);
+	GPIOA->MODER &= ~(3U<<14);
 
-	/*PB6 - alternate function*/
-	GPIOB->MODER |=  (2U<<12);
+	/*PA5 - alternate function*/
+	GPIOA->MODER |=  (2U<<10);
 
-	/*PB7 - alternate function*/
-	GPIOB->MODER |=  (2U<<14);
-
-	/*Clear the pins*/
-	GPIOB->AFR[0] &= ~(15U<<24);		//1111 0000 1111 1111 1111 1111 1111 1111
-	GPIOB->AFR[0] &= ~(15U<<28);		//0000 1111 1111 1111 1111 1111 1111 1111
-
-	/*Set PB6 and PB7 to AF4*/
-	GPIOB->AFR[0] |=  (4U<<24);			//0000 0100 0000 0000 0000 0000 0000 0000
-	GPIOB->AFR[0] |=  (4U<<28);			//0100 0000 0000 0000 0000 0000 0000 0000
-
-	/*Set PB6 and PB7 pins output to open drain mode*/
-	GPIOB->OTYPER |= ((1U<<6)|(1U<<7));
+	/*PA7 - alternate function*/
+	GPIOA->MODER |=  (2U<<14);
 
 	/*Clear the pins*/
-	GPIOB->PUPDR &= ~(3U<<12);
-	GPIOB->PUPDR &= ~(3U<<14);
+	GPIOA->AFR[0] &= ~(15U<<20);		//1111 1111 0000 1111 1111 1111 1111 1111
+	GPIOA->AFR[0] &= ~(15U<<28);		//0000 1111 1111 1111 1111 1111 1111 1111
+
+	/*Set PA5 and PA7 to AF4*/
+	GPIOA->AFR[0] |=  (4U<<20);			//0000 0000 0100 0000 0000 0000 0000 0000
+	GPIOA->AFR[0] |=  (4U<<28);			//0100 0000 0000 0000 0000 0000 0000 0000
+
+	/*Set PA5 and PA7 pins output to open drain mode*/
+	GPIOA->OTYPER |= ((1U<<5)|(1U<<7));
+
+	/*Clear the pins*/
+	GPIOA->PUPDR &= ~(3U<<10);
+	GPIOA->PUPDR &= ~(3U<<14);
 
 	/*Set pull-up for PB6*/
-	GPIOB->PUPDR |=  (1U<<12);			//0000 0000 0000 0000 0001 0000 0000 0000
+	GPIOA->PUPDR |=  (1U<<10);			//0000 0000 0000 0000 0000 0100 0000 0000
 
 	/*Set pull-up for PB7*/
-	GPIOB->PUPDR |=  (1U<<14);			//0000 0000 0000 0000 0100 0000 0000 0000
+	GPIOA->PUPDR |=  (1U<<14);			//0000 0000 0000 0000 0100 0000 0000 0000
+
+	/*Enable clock access to GPIOE*/
+	RCC->AHB1ENR |= GPIOE_EN;
+
+	/*Set PE3 to output mode*/
+	/*Clear the pin PE3*/
+	GPIOE->MODER &= ~(3U<<6);
+
+	/*PA5 - output*/
+	GPIOE->MODER |=  (1U<<6);
+
+	/*Set PE3 output to open drain mode*/
+	GPIOE->OTYPER |= (1U<<3);
+
+	/*Set pull-up for PE3*/
+	GPIOE->PUPDR |= (1U<<6);
 }
 
 void I2C1_Init(void)

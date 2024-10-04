@@ -8,7 +8,8 @@
 #ifndef I2C_H_
 #define I2C_H_
 
-#define GPIOB_EN		(1U<<2)
+#define GPIOA_EN		(1U<<0)
+#define GPIOE_EN		(1U<<4)
 #define I2C1_EN			(1U<<21)
 #define I2C1_PE			(1U<<0)
 #define I2C1_100KHz		80

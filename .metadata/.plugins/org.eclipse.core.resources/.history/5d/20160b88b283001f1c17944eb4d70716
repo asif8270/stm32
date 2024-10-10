@@ -1,0 +1,19 @@
+#include <stdio.h>
+#include <stdint.h>
+#include "stm32f4xx.h"
+#include "lis302dl.h"
+
+uint8_t x_data[2];
+int16_t x;
+
+int main(void)
+{
+	lis302Init();
+
+	lis302Read(LIS302DL_OUT_X, x_data);
+
+	while(1)
+	{
+
+	}
+}

@@ -1,0 +1,75 @@
+/*
+ * lis302dl.c
+ *
+ *  Created on: Oct 4, 2024
+ *      Author: Asif
+ */
+
+#include "lis302dl.h"
+
+uint8_t lis302Read(uint8_t regAddress)
+{
+    uint8_t rxdata;
+
+    /*Combine address and read bit*/
+    regAddress |= LIS302DL_READ_FLAG;
+
+    csLow();
+
+    /*Send address to read from*/
+    SPI1_Transmit(&regAddress, 1);
+
+    /*Read 1 byte*/
+    SPI1_Receive(&rxdata, 1);
+
+    csHigh();
+
+    return rxdata;
+}
+
+void lis302Write(uint8_t regAddress, uint8_t value)
+{
+	uint8_t data[2];
+	data[0] = regAddress;
+	data[1] = value;
+
+	//CS low
+    csLow();
+
+    /*Transmit data and address*/
+    SPI1_Transmit((uint8_t*)&data, 2);
+
+    //CS high
+    csHigh();
+}
+
+void lis302Init(void)
+{
+	/*Enable SPI GPIO*/
+	SPI_gpioInit();
+
+	/*Enable SPI*/
+	SPI1_Config();
+
+	// Verify communication
+	while (!(lis302Read(LIS302DL_WHO_AM_I) != 0x3B))
+	{
+		printf("Initialization failed\n\r");  // Initialization failed
+	}
+
+	printf("Initialization successful\n\r");  // Initialization successful
+
+	/*Set data format range to +-2g, 100Hz*/
+	lis302Write(LIS302DL_CTRL_REG1, 0x47);
+}
+
+
+
+
+
+
+
+
+
+
+

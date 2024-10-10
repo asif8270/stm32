@@ -1,14 +1,31 @@
-10:53:03 **** Incremental Build of configuration Debug for project 7_uart_rx ****
+12:15:38 **** Incremental Build of configuration Debug for project 9_SPI_LIS302DL ****
 make -j4 all 
-arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
-arm-none-eabi-gcc -o "7_uart_rx.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\stm32\7_uart_rx\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="7_uart_rx.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 7_uart_rx.elf
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/main.c: In function 'main':
+../Src/main.c:25:36: warning: pointer targets in passing argument 2 of 'lis3dshRead' differ in signedness [-Wpointer-sign]
+   25 |         lis3dshRead(LIS3DSH_OUT_T, &temp, 1);
+      |                                    ^~~~~
+      |                                    |
+      |                                    int8_t * {aka signed char *}
+In file included from ../Src/main.c:4:
+../Inc/lis3dsh.h:50:47: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int8_t *' {aka 'signed char *'}
+   50 | void lis3dshRead(uint8_t regAddress, uint8_t *rxdata, uint8_t size);
+      |                                      ~~~~~~~~~^~~~~~
+arm-none-eabi-gcc -o "9_SPI_LIS302DL.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\stm32\9_SPI_LIS302DL\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="9_SPI_LIS302DL.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 9_SPI_LIS302DL.elf
  
-arm-none-eabi-size  7_uart_rx.elf 
-arm-none-eabi-objdump -h -S 7_uart_rx.elf  > "7_uart_rx.list"
+arm-none-eabi-size  9_SPI_LIS302DL.elf 
+arm-none-eabi-objdump -h -S 9_SPI_LIS302DL.elf  > "9_SPI_LIS302DL.list"
    text	   data	    bss	    dec	    hex	filename
-   1088	      0	   1568	   2656	    a60	7_uart_rx.elf
+   1696	      0	   1584	   3280	    cd0	9_SPI_LIS302DL.elf
 Finished building: default.size.stdout
  
-Finished building: 7_uart_rx.list
+Finished building: 9_SPI_LIS302DL.list
+ 
+12:15:59 **** Incremental Build of configuration Debug for project 9_SPI_LIS302DL ****
+make -j4 all 
+arm-none-eabi-size  9_SPI_LIS302DL.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1696	      0	   1584	   3280	    cd0	9_SPI_LIS302DL.elf
+Finished building: default.size.stdout
  

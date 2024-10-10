@@ -1,0 +1,30 @@
+/*
+ * lis302dl.h
+ *
+ *  Created on: Oct 4, 2024
+ *      Author: Asif
+ */
+
+#ifndef LIS302DL_H_
+#define LIS302DL_H_
+
+#include "spi.h"
+
+// LIS302DL Register Addresses
+#define LIS302DL_WHO_AM_I    0x0F
+#define LIS302DL_CTRL_REG1   0x20
+#define LIS302DL_CTRL_REG2   0x21
+#define LIS302DL_CTRL_REG3   0x22
+#define LIS302DL_OUT_X       0x29
+#define LIS302DL_OUT_Y       0x2B
+#define LIS302DL_OUT_Z       0x2D
+
+#define LIS302DL_READ_FLAG  0x80  // Read flag for LIS302DL (MSB must be 1 for reading)
+#define LIS302DL_WRITE_FLAG 0x00  // Write flag for LIS302DL
+
+uint8_t lis302Init(void);
+uint8_t lis302Read(uint8_t regAddress);
+void lis302Write(uint8_t regAddress, uint8_t value);
+
+
+#endif /* LIS302DL_H_ */

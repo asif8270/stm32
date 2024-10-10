@@ -1,0 +1,51 @@
+11:33:53 **** Build of configuration Debug for project 8_I2C ****
+make -j4 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
+arm-none-eabi-gcc "../Src/i2c.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/i2c.d" -MT"Src/i2c.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/i2c.o"
+arm-none-eabi-gcc "../Src/lis302dl.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/lis302dl.d" -MT"Src/lis302dl.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/lis302dl.o"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+../Src/i2c.c: In function 'I2C1_byteRead':
+../Src/i2c.c:97:22: warning: variable 'tmp' set but not used [-Wunused-but-set-variable]
+   97 |         volatile int tmp;
+      |                      ^~~
+../Src/i2c.c: In function 'i2c1_burstRead':
+../Src/i2c.c:168:21: error: 'slv_addr' undeclared (first use in this function); did you mean 'saddr'?
+  168 |         I2C1->DR = (slv_addr << 1);
+      |                     ^~~~~~~~
+      |                     saddr
+../Src/i2c.c:168:21: note: each undeclared identifier is reported only once for each function it appears in
+../Src/i2c.c:180:20: error: 'reg_addr' undeclared (first use in this function)
+  180 |         I2C1->DR = reg_addr;
+      |                    ^~~~~~~~
+../Src/i2c.c:218:26: error: 'pdata' undeclared (first use in this function); did you mean 'data'?
+  218 |                         *pdata++ = I2C1->DR;
+      |                          ^~~~~
+      |                          data
+../Src/i2c.c:156:22: warning: variable 'tmp' set but not used [-Wunused-but-set-variable]
+  156 |         volatile int tmp;
+      |                      ^~~
+../Src/i2c.c: In function 'I2C1_burstWrite':
+../Src/i2c.c:249:21: error: 'slv_addr' undeclared (first use in this function); did you mean 'saddr'?
+  249 |         I2C1->DR = (slv_addr << 1);
+      |                     ^~~~~~~~
+      |                     saddr
+../Src/i2c.c:261:20: error: 'reg_addr' undeclared (first use in this function)
+  261 |         I2C1->DR = reg_addr;
+      |                    ^~~~~~~~
+../Src/i2c.c:269:29: error: 'pdata' undeclared (first use in this function); did you mean 'data'?
+  269 |                 I2C1->DR = *pdata++;
+      |                             ^~~~~
+      |                             data
+../Src/i2c.c:237:22: warning: variable 'tmp' set but not used [-Wunused-but-set-variable]
+  237 |         volatile int tmp;
+      |                      ^~~
+make: *** [Src/subdir.mk:31: Src/i2c.o] Error 1
+make: *** Waiting for unfinished jobs....
+../Src/main.c: In function 'main':
+../Src/main.c:8:9: warning: implicit declaration of function 'SPI_gpioInit' [-Wimplicit-function-declaration]
+    8 |         SPI_gpioInit();
+      |         ^~~~~~~~~~~~
+"make -j4 all" terminated with exit code 2. Build might be incomplete.
+
+11:33:54 Build Failed. 8 errors, 4 warnings. (took 450ms)
+

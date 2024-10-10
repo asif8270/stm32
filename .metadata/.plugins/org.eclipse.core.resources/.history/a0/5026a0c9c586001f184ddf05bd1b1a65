@@ -1,0 +1,65 @@
+/*
+ * lis302dl.h
+ *
+ *  Created on: Oct 4, 2024
+ *      Author: Asif
+ */
+
+#ifndef LIS3DSH_H
+#define LIS3DSH_H
+
+#include "stm32f4xx.h"
+
+// LIS3DSH Register Addresses
+#define LIS3DSH_OUT_T 		0x0C
+#define LIS3DSH_INFO1 		0x0D
+#define LIS3DSH_INFO2 		0x0E
+#define LIS3DSH_WHO_AM_I 	0x0F
+#define LIS3DSH_OFF_X 		0x10
+#define LIS3DSH_OFF_Y 		0x11
+#define LIS3DSH_OFF_Z 		0x12
+#define LIS3DSH_CS_X 		0x13
+#define LIS3DSH_CS_Y 		0x14
+#define LIS3DSH_CS_Z 		0x15
+#define LIS3DSH_CTRL_REG1	0x21
+#define LIS3DSH_CTRL_REG2   0x22
+#define LIS3DSH_CTRL_REG3   0x23
+#define LIS3DSH_CTRL_REG4 	0x20
+#define LIS3DSH_CTRL_REG5 	0x24
+#define LIS3DSH_CTRL_REG6 	0x25
+#define LIS3DSH_STATUS 		0x27
+#define LIS3DSH_OUT_X_L 	0x28
+#define LIS3DSH_OUT_X_H 	0x29
+#define LIS3DSH_OUT_Y_L 	0x2A
+#define LIS3DSH_OUT_Y_H 	0x2B
+#define LIS3DSH_OUT_Z_L 	0x2C
+#define LIS3DSH_OUT_Z_H 	0x2D
+
+// LIS3DSH Read Flag
+#define LIS3DSH_Read_Mode	0x80
+
+// Control Register 4 (CTRL_REG4) Configuration
+#define LIS3DSH_ODR_POWER_DOWN	0x00
+#define LIS3DSH_ODR_3_125HZ 	0x10
+#define LIS3DSH_ODR_6_25HZ 		0x20
+#define LIS3DSH_ODR_12_5HZ 		0x30
+#define LIS3DSH_ODR_25HZ 		0x40
+#define LIS3DSH_ODR_50HZ 		0x50
+#define LIS3DSH_ODR_100HZ		0x67
+#define LIS3DSH_ODR_400HZ 		0x70
+#define LIS3DSH_ODR_800HZ 		0x80
+#define LIS3DSH_ODR_1600HZ 		0x90
+
+// Full-scale selection
+#define LIS3DSH_FSCALE_2G	0x00
+#define LIS3DSH_FSCALE_4G 	0x08
+#define LIS3DSH_FSCALE_6G 	0x10
+#define LIS3DSH_FSCALE_8G 	0x18
+#define LIS3DSH_FSCALE_16G  0x20
+
+// Function Prototypes
+void lis3dshInit(void);
+void lis3dshWrite(uint8_t regAddress, uint8_t value);
+void lis3dshRead(uint8_t regAddress, uint8_t *rxdata);
+
+#endif // LIS3DSH_H

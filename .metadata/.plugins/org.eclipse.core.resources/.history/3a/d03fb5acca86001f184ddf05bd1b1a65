@@ -1,0 +1,37 @@
+#include <lis3dsh.h>
+#include <stdio.h>
+#include <stdint.h>
+#include "stm32f4xx.h"
+
+uint8_t x_l, x_h, y_l, y_h, z_l, z_h;
+
+int main(void)
+{
+	uint8_t rxData;
+	lis3dshInit();
+    lis3dshRead(LIS3DSH_WHO_AM_I, &rxData);
+
+
+	// Verify communication
+	while (rxData != 0x3F)
+	{
+		return -1;  // Initialization failed
+	}
+
+    while(1)
+    {
+    	lis3dshRead(LIS3DSH_OUT_X_L, &x_l);
+    	lis3dshRead(LIS3DSH_OUT_X_H, &x_h);
+
+    	lis3dshRead(LIS3DSH_OUT_Y_L, &y_l);
+    	lis3dshRead(LIS3DSH_OUT_Y_H, &y_h);
+
+    	lis3dshRead(LIS3DSH_OUT_Z_L, &z_l);
+    	lis3dshRead(LIS3DSH_OUT_Z_H, &z_h);
+
+    	int16_t x = (x_h << 8) | x_l;
+    	int16_t y = (y_h << 8) | y_l;
+    	int16_t z = (z_h << 8) | z_l;
+
+    }
+}

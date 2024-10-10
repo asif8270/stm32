@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">&#x0A;<refactoring comment="Rename resource &apos;9_SPI_LIS302DL/Inc/lis302dl.h&apos; to &apos;lis3dsh.h&apos;" description="Rename resource &apos;lis302dl.h&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Inc/lis302dl.h" name="lis3dsh.h" stamp="1728534534202" updateReferences="true"/>&#x0A;<refactoring comment="Rename resource &apos;9_SPI_LIS302DL/Src/lis302dl.c&apos; to &apos;lis3dsh.c&apos;" description="Rename resource &apos;lis302dl.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Src/lis302dl.c" name="lis3dsh.c" stamp="1728534543737" updateReferences="true"/>
+</session>

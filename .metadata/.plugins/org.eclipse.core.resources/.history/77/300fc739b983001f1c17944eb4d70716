@@ -1,0 +1,29 @@
+#include <stdio.h>
+#include <stdint.h>
+#include "stm32f4xx.h"
+#include "lis302dl.h"
+
+int8_t x, y, z;
+
+int main(void)
+{
+    lis302Init();
+
+    if (!lis302Init())
+    {
+        printf("LIS302DL initialization failed!\r\n");
+        while(1);
+    }
+
+    while(1)
+    {
+        x = (int8_t)lis302Read(LIS302DL_OUT_X);
+        y = (int8_t)lis302Read(LIS302DL_OUT_Y);
+        z = (int8_t)lis302Read(LIS302DL_OUT_Z);
+
+        printf("X: %d, Y: %d, Z: %d\r\n", x, y, z);
+
+        // Add a delay here if needed
+        for(volatile int i = 0; i < 1000000; i++);
+    }
+}

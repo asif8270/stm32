@@ -1,0 +1,3 @@
+../Src/lis3dsh.c:10:6:lis3dshRead	1
+../Src/lis3dsh.c:26:6:lis3dshWrite	1
+../Src/lis3dsh.c:46:6:lis3dshInit	1

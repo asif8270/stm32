@@ -897,3 +897,9 @@ java.io.FileNotFoundException: D:\stm32\9_SPI_LIS3DSH\Debug\9_SPI_LIS302DL.elf n
 
 !ENTRY org.eclipse.cdt.core 1 0 2024-10-11 10:33:27.701
 !MESSAGE Indexed '11_adc_continuous_conversion' (10 sources, 68 headers) in 0.63 sec: 3,124 declarations; 4,785 references; 4 unresolved inclusions; 30 syntax errors; 725 unresolved names (8.4%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2024-10-11 10:54:25.557
+!MESSAGE Indexed '12_systick_delay' (8 sources, 68 headers) in 0.656 sec: 3,105 declarations; 4,475 references; 4 unresolved inclusions; 30 syntax errors; 725 unresolved names (8.7%)
+
+!ENTRY org.eclipse.cdt.ui 2 0 2024-10-11 11:02:53.331
+!MESSAGE The 'org.eclipse.cdt.ui.InclusionProposalComputer' proposal computer from the 'org.eclipse.cdt.ui' plug-in did not complete normally. The extension violated the API contract of the 'computeContextInformation()' operation.

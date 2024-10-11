@@ -1,0 +1,23 @@
+#include <stdio.h>
+#include <stdint.h>
+#include "stm32f4xx.h"
+#include "lis3dsh.h"
+#include "adc.h"
+
+uint8_t analogData;
+
+int main(void)
+{
+	adcInit();
+
+    while(1)
+    {
+    	lis3dshRead(LIS3DSH_OUT_T, &temp, 1);
+
+    	lis3dshRead(LIS3DSH_OUT_X_L, rxData, 6);
+
+    	x = (rxData[1] << 8) | rxData[0];
+    	y = (rxData[3] << 8) | rxData[2];
+    	z = (rxData[5] << 8) | rxData[4];
+    }
+}

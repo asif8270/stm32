@@ -1,31 +1,22 @@
-12:15:38 **** Incremental Build of configuration Debug for project 9_SPI_LIS302DL ****
+10:38:02 **** Incremental Build of configuration Debug for project 11_adc_continuous_conversion ****
 make -j4 all 
+arm-none-eabi-size  11_adc_continuous_conversion.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5044	     92	   1908	   7044	   1b84	11_adc_continuous_conversion.elf
+Finished building: default.size.stdout
+ 
+10:40:14 **** Incremental Build of configuration Debug for project 11_adc_continuous_conversion ****
+make -j4 all 
+arm-none-eabi-gcc "../Src/adc.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/adc.d" -MT"Src/adc.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/adc.o"
 arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-../Src/main.c: In function 'main':
-../Src/main.c:25:36: warning: pointer targets in passing argument 2 of 'lis3dshRead' differ in signedness [-Wpointer-sign]
-   25 |         lis3dshRead(LIS3DSH_OUT_T, &temp, 1);
-      |                                    ^~~~~
-      |                                    |
-      |                                    int8_t * {aka signed char *}
-In file included from ../Src/main.c:4:
-../Inc/lis3dsh.h:50:47: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int8_t *' {aka 'signed char *'}
-   50 | void lis3dshRead(uint8_t regAddress, uint8_t *rxdata, uint8_t size);
-      |                                      ~~~~~~~~~^~~~~~
-arm-none-eabi-gcc -o "9_SPI_LIS302DL.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\stm32\9_SPI_LIS302DL\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="9_SPI_LIS302DL.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 9_SPI_LIS302DL.elf
+arm-none-eabi-gcc -o "11_adc_continuous_conversion.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\stm32\11_adc_continuous_conversion\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="11_adc_continuous_conversion.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 11_adc_continuous_conversion.elf
  
-arm-none-eabi-size  9_SPI_LIS302DL.elf 
-arm-none-eabi-objdump -h -S 9_SPI_LIS302DL.elf  > "9_SPI_LIS302DL.list"
+arm-none-eabi-size  11_adc_continuous_conversion.elf 
+arm-none-eabi-objdump -h -S 11_adc_continuous_conversion.elf  > "11_adc_continuous_conversion.list"
    text	   data	    bss	    dec	    hex	filename
-   1696	      0	   1584	   3280	    cd0	9_SPI_LIS302DL.elf
+   5048	     92	   1908	   7048	   1b88	11_adc_continuous_conversion.elf
 Finished building: default.size.stdout
  
-Finished building: 9_SPI_LIS302DL.list
- 
-12:15:59 **** Incremental Build of configuration Debug for project 9_SPI_LIS302DL ****
-make -j4 all 
-arm-none-eabi-size  9_SPI_LIS302DL.elf 
-   text	   data	    bss	    dec	    hex	filename
-   1696	      0	   1584	   3280	    cd0	9_SPI_LIS302DL.elf
-Finished building: default.size.stdout
+Finished building: 11_adc_continuous_conversion.list
  

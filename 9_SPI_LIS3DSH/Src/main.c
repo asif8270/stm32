@@ -3,6 +3,7 @@
 #include "stm32f4xx.h"
 #include "lis3dsh.h"
 
+
 int16_t x, y, z;
 uint8_t rxData[6];
 uint8_t who_am_i;

@@ -33,34 +33,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := 9_SPI_LIS302DL
+BUILD_ARTIFACT_NAME := 9_SPI_LIS3DSH
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-9_SPI_LIS302DL.elf \
+9_SPI_LIS3DSH.elf \
 
 MAP_FILES += \
-9_SPI_LIS302DL.map \
+9_SPI_LIS3DSH.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-9_SPI_LIS302DL.list \
+9_SPI_LIS3DSH.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: 9_SPI_LIS302DL.elf secondary-outputs
+main-build: 9_SPI_LIS3DSH.elf secondary-outputs
 
 # Tool invocations
-9_SPI_LIS302DL.elf 9_SPI_LIS302DL.map: $(OBJS) $(USER_OBJS) D:\stm32\9_SPI_LIS302DL\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "9_SPI_LIS302DL.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\stm32\9_SPI_LIS302DL\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="9_SPI_LIS302DL.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+9_SPI_LIS3DSH.elf 9_SPI_LIS3DSH.map: $(OBJS) $(USER_OBJS) D:\stm32\9_SPI_LIS3DSH\STM32F407VGTX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "9_SPI_LIS3DSH.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\stm32\9_SPI_LIS3DSH\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="9_SPI_LIS3DSH.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -69,14 +69,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-9_SPI_LIS302DL.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "9_SPI_LIS302DL.list"
+9_SPI_LIS3DSH.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "9_SPI_LIS3DSH.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) 9_SPI_LIS302DL.elf 9_SPI_LIS302DL.list 9_SPI_LIS302DL.map default.size.stdout
+	-$(RM) 9_SPI_LIS3DSH.elf 9_SPI_LIS3DSH.list 9_SPI_LIS3DSH.map default.size.stdout
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)

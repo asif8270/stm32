@@ -1,0 +1,10 @@
+10:30:05 **** Incremental Build of configuration Debug for project 10_ADC_Continuous ****
+make -j4 all 
+arm-none-eabi-size  10_ADC_Continuous.elf 
+   text	   data	    bss	    dec	    hex	filename
+   5044	     92	   1908	   7044	   1b84	10_ADC_Continuous.elf
+Finished building: default.size.stdout
+ 
+
+10:30:05 Build Finished. 0 errors, 0 warnings. (took 209ms)
+

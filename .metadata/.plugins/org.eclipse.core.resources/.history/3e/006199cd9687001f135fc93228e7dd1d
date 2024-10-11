@@ -1,0 +1,18 @@
+/*
+ * systick.c
+ *
+ *  Created on: Oct 11, 2024
+ *      Author: Asif
+ */
+
+#include "stm32f4xx.h"
+#include "systick.h"
+
+#define SYSTICK_LOAD_VAL	16000
+#define SYSTICK_EN			(1U<<0);
+#define SYSTICK_CLK_EN		(1U<<2);
+
+void systickDelayMs(int delay)
+{
+	SysTick->CTRL |= SYSTICK_EN;
+}

@@ -81,7 +81,7 @@ Disassembly of section .text:
  80001c4:	080002f4 	.word	0x080002f4
 
 080001c8 <main>:
-#define PIN14				(1U<<14)
+
 #define LED_GREEN			PIN12
 #define LED_RED				PIN14
 
@@ -90,6 +90,7 @@ int main(void)
  80001c8:	b480      	push	{r7}
  80001ca:	b083      	sub	sp, #12
  80001cc:	af00      	add	r7, sp, #0
+	/*Enable clock access to the GPIOD*/
 	RCC->AHB1ENR |= GPIOD_EN;
  80001ce:	4b1f      	ldr	r3, [pc, #124]	@ (800024c <main+0x84>)
  80001d0:	6b1b      	ldr	r3, [r3, #48]	@ 0x30
@@ -97,6 +98,7 @@ int main(void)
  80001d4:	f043 0308 	orr.w	r3, r3, #8
  80001d8:	6313      	str	r3, [r2, #48]	@ 0x30
 
+	/*Set the PD12 as OUTPUT*/
 	GPIOD->MODER |= (1U<<24);
  80001da:	4b1d      	ldr	r3, [pc, #116]	@ (8000250 <main+0x88>)
  80001dc:	681b      	ldr	r3, [r3, #0]
@@ -110,6 +112,7 @@ int main(void)
  80001ec:	f023 7300 	bic.w	r3, r3, #33554432	@ 0x2000000
  80001f0:	6013      	str	r3, [r2, #0]
 
+	/*Set the PD14 as OUTPUT*/
 	GPIOD->MODER |= (1U<<28);
  80001f2:	4b17      	ldr	r3, [pc, #92]	@ (8000250 <main+0x88>)
  80001f4:	681b      	ldr	r3, [r3, #0]
@@ -125,6 +128,7 @@ int main(void)
 
 	while(1)
 	{
+		/*Turn ON the LED4 (GREEN LED)*/
 		GPIOD->ODR ^= LED_GREEN;
  800020a:	4b11      	ldr	r3, [pc, #68]	@ (8000250 <main+0x88>)
  800020c:	695b      	ldr	r3, [r3, #20]
@@ -142,6 +146,8 @@ int main(void)
  8000224:	4a0b      	ldr	r2, [pc, #44]	@ (8000254 <main+0x8c>)
  8000226:	4293      	cmp	r3, r2
  8000228:	ddf8      	ble.n	800021c <main+0x54>
+
+		/*Turn OFF the LED4 (GREEN LED)*/
 		GPIOD->ODR ^= LED_RED;
  800022a:	4b09      	ldr	r3, [pc, #36]	@ (8000250 <main+0x88>)
  800022c:	695b      	ldr	r3, [r3, #20]

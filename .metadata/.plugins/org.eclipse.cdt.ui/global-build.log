@@ -1,7 +1,6 @@
-11:25:55 **** Incremental Build of configuration Debug for project 12_systick_delay ****
+10:34:08 **** Incremental Build of configuration Debug for project 13_InputInterrupt ****
 make -j4 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-arm-none-eabi-gcc "../Src/uart.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/uart.d" -MT"Src/uart.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/uart.o"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
 In file included from ../Src/main.c:7:
 ../Inc/uart.h:15:13: warning: 'uart_set_baudrate' declared 'static' but never defined [-Wunused-function]
    15 | static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t BaudRate);
@@ -9,21 +8,21 @@ In file included from ../Src/main.c:7:
 ../Inc/uart.h:16:17: warning: 'compute_uart_bd' declared 'static' but never defined [-Wunused-function]
    16 | static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate);
       |                 ^~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "12_systick_delay.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\stm32\12_systick_delay\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="12_systick_delay.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 12_systick_delay.elf
+arm-none-eabi-gcc -o "13_InputInterrupt.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\stm32\13_InputInterrupt\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="13_InputInterrupt.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 13_InputInterrupt.elf
  
-arm-none-eabi-size  12_systick_delay.elf 
-arm-none-eabi-objdump -h -S 12_systick_delay.elf  > "12_systick_delay.list"
+arm-none-eabi-size  13_InputInterrupt.elf 
+arm-none-eabi-objdump -h -S 13_InputInterrupt.elf  > "13_InputInterrupt.list"
    text	   data	    bss	    dec	    hex	filename
-   5316	     92	   1900	   7308	   1c8c	12_systick_delay.elf
+   5544	     92	   1900	   7536	   1d70	13_InputInterrupt.elf
 Finished building: default.size.stdout
  
-Finished building: 12_systick_delay.list
+Finished building: 13_InputInterrupt.list
  
-11:26:05 **** Incremental Build of configuration Debug for project 12_systick_delay ****
+10:34:16 **** Incremental Build of configuration Debug for project 13_InputInterrupt ****
 make -j4 all 
-arm-none-eabi-size  12_systick_delay.elf 
+arm-none-eabi-size  13_InputInterrupt.elf 
    text	   data	    bss	    dec	    hex	filename
-   5316	     92	   1900	   7308	   1c8c	12_systick_delay.elf
+   5544	     92	   1900	   7536	   1d70	13_InputInterrupt.elf
 Finished building: default.size.stdout
  

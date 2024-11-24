@@ -1,28 +1,53 @@
-10:34:08 **** Incremental Build of configuration Debug for project 13_InputInterrupt ****
-make -j4 all 
-arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
-In file included from ../Src/main.c:7:
-../Inc/uart.h:15:13: warning: 'uart_set_baudrate' declared 'static' but never defined [-Wunused-function]
-   15 | static void uart_set_baudrate(USART_TypeDef *USARTx, uint32_t PeriphClk, uint32_t BaudRate);
-      |             ^~~~~~~~~~~~~~~~~
-../Inc/uart.h:16:17: warning: 'compute_uart_bd' declared 'static' but never defined [-Wunused-function]
-   16 | static uint16_t compute_uart_bd(uint32_t PeriphClk, uint32_t BaudRate);
-      |                 ^~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "13_InputInterrupt.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\stm32\13_InputInterrupt\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="13_InputInterrupt.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: 13_InputInterrupt.elf
+11:11:51 **** Clean-only build of configuration Debug for project 9_SPI_LIS3DSH ****
+make -j6 clean 
+rm -rf ./Startup/startup_stm32f407vgtx.d ./Startup/startup_stm32f407vgtx.o
+rm -rf ./Src/lis3dsh.cyclo ./Src/lis3dsh.d ./Src/lis3dsh.o ./Src/lis3dsh.su ./Src/main.cyclo ./Src/main.d ./Src/main.o ./Src/main.su ./Src/spi.cyclo ./Src/spi.d ./Src/spi.o ./Src/spi.su ./Src/syscalls.cyclo ./Src/syscalls.d ./Src/syscalls.o ./Src/syscalls.su ./Src/sysmem.cyclo ./Src/sysmem.d ./Src/sysmem.o ./Src/sysmem.su
+rm -rf 9_SPI_LIS3DSH.elf 9_SPI_LIS3DSH.list 9_SPI_LIS3DSH.map default.size.stdout
  
-arm-none-eabi-size  13_InputInterrupt.elf 
-arm-none-eabi-objdump -h -S 13_InputInterrupt.elf  > "13_InputInterrupt.list"
+11:11:52 **** Build of configuration Debug for project 9_SPI_LIS3DSH ****
+make -j6 all 
+arm-none-eabi-gcc -mcpu=cortex-m4 -g3 -DDEBUG -c -x assembler-with-cpp -MMD -MP -MF"Startup/startup_stm32f407vgtx.d" -MT"Startup/startup_stm32f407vgtx.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Startup/startup_stm32f407vgtx.o" "../Startup/startup_stm32f407vgtx.s"
+arm-none-eabi-gcc "../Src/lis3dsh.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/lis3dsh.d" -MT"Src/lis3dsh.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/lis3dsh.o"
+arm-none-eabi-gcc "../Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/main.d" -MT"Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/main.o"
+arm-none-eabi-gcc "../Src/spi.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/spi.d" -MT"Src/spi.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/spi.o"
+arm-none-eabi-gcc "../Src/syscalls.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/syscalls.d" -MT"Src/syscalls.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/syscalls.o"
+arm-none-eabi-gcc "../Src/sysmem.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DSTM32 -DSTM32F4 -DSTM32F407VGTx -DSTM32F407xx -c -I../Inc -I"D:/stm32/chip_headers/CMSIS/Device/ST/STM32F4xx/Include" -I"D:/stm32/chip_headers/CMSIS/Include" -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Src/sysmem.d" -MT"Src/sysmem.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Src/sysmem.o"
+../Src/main.c: In function 'main':
+../Src/main.c:26:36: warning: pointer targets in passing argument 2 of 'lis3dshRead' differ in signedness [-Wpointer-sign]
+   26 |         lis3dshRead(LIS3DSH_OUT_T, &temp, 1);
+      |                                    ^~~~~
+      |                                    |
+      |                                    int8_t * {aka signed char *}
+In file included from ../Src/main.c:4:
+../Inc/lis3dsh.h:50:47: note: expected 'uint8_t *' {aka 'unsigned char *'} but argument is of type 'int8_t *' {aka 'signed char *'}
+   50 | void lis3dshRead(uint8_t regAddress, uint8_t *rxdata, uint8_t size);
+      |                                      ~~~~~~~~~^~~~~~
+../Src/spi.c: In function 'SPI1_Transmit':
+../Src/spi.c:107:17: warning: variable 'temp' set but not used [-Wunused-but-set-variable]
+  107 |         uint8_t temp;
+      |                 ^~~~
+arm-none-eabi-gcc -o "9_SPI_LIS3DSH.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\stm32\9_SPI_LIS3DSH\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="9_SPI_LIS3DSH.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: 9_SPI_LIS3DSH.elf
+ 
+arm-none-eabi-size  9_SPI_LIS3DSH.elf 
+arm-none-eabi-objdump -h -S 9_SPI_LIS3DSH.elf  > "9_SPI_LIS3DSH.list"
    text	   data	    bss	    dec	    hex	filename
-   5544	     92	   1900	   7536	   1d70	13_InputInterrupt.elf
+   1696	      0	   1584	   3280	    cd0	9_SPI_LIS3DSH.elf
 Finished building: default.size.stdout
  
-Finished building: 13_InputInterrupt.list
+Finished building: 9_SPI_LIS3DSH.list
  
-10:34:16 **** Incremental Build of configuration Debug for project 13_InputInterrupt ****
-make -j4 all 
-arm-none-eabi-size  13_InputInterrupt.elf 
+11:12:09 **** Incremental Build of configuration Debug for project 9_SPI_LIS3DSH ****
+make -j6 all 
+arm-none-eabi-size  9_SPI_LIS3DSH.elf 
    text	   data	    bss	    dec	    hex	filename
-   5544	     92	   1900	   7536	   1d70	13_InputInterrupt.elf
+   1696	      0	   1584	   3280	    cd0	9_SPI_LIS3DSH.elf
+Finished building: default.size.stdout
+ 
+11:12:29 **** Incremental Build of configuration Debug for project 9_SPI_LIS3DSH ****
+make -j6 all 
+arm-none-eabi-size  9_SPI_LIS3DSH.elf 
+   text	   data	    bss	    dec	    hex	filename
+   1696	      0	   1584	   3280	    cd0	9_SPI_LIS3DSH.elf
 Finished building: default.size.stdout
  
